@@ -2,7 +2,7 @@
 <?php include_once("config.php");?>
 <?php
 if (!isset($_SESSION['firstname']) && !isset($_SESSION['role'])){
-    header("location: login/login.html");
+    header("location: login.html");
     exit();
 }
 ?>

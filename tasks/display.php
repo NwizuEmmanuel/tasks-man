@@ -1,5 +1,5 @@
 <?php
-include_once("config.php");
+# include_once("config.php"); already included in index.php
 
 $result = mysqli_query($mysqli, "SELECT id, task, duedate, user_id, status FROM tasks WHERE user_id = '".$_SESSION['id']."' ORDER BY duedate ASC");
 if (!$result) {
