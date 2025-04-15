@@ -6,10 +6,12 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
     <title>Admin</title>
 </head>
 <body>
     <h1>Welcome, <?=$_SESSION['firstname']?></h1>
+    <div><a href="admin_logout.php">Logout</a></div>
     <h2>Tasks and users</h2>
     <table>
         <thead>
@@ -46,7 +48,7 @@ session_start();
                                 <td>{$row['task']}</td>
                                 <td>{$row['status']}</td>
                                 <td>{$row['duedate']}</td>
-                                <td><a href='edit_task.php?id={$row['id']}'>Edit</a> | <a href='delete_task.php?id={$row['id']}'>Delete</a></td>
+                                <td><a href='edit_task.php?id={$row['id']}&task={$row['task']}&status={$row['status']}&duedate={$row['duedate']}'>Edit</a> | <a href='delete_task.php?id={$row['id']}'>Delete</a></td>
                               </tr>";
                     }
                 } else {

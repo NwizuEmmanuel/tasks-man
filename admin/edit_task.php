@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_task'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
     <title>Edit Task</title>
 </head>
 
@@ -42,11 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_task'])) {
     <form method="POST" action="">
         <input type="hidden" name="task_id" value="<?php echo isset($_GET['id']) ? intval($_GET['id']) : ''; ?>">
         <label for="task">Task:</label>
-        <input type="text" name="task" id="task" required>
+        <input type="text" name="task" id="task" required value="<?php echo isset($_GET['task']) ? htmlspecialchars($_GET['task']) : ''; ?>">
         <label for="status">Status:</label>
-        <input type="text" name="status" id="status" required>
+        <input type="text" name="status" id="status" required value="<?php echo isset($_GET['status']) ? htmlspecialchars($_GET['status']) : ''; ?>">
         <label for="duedate">Due Date:</label>
-        <input type="date" name="duedate" id="duedate" required>
+        <input type="date" name="duedate" id="duedate" required value="<?php echo isset($_GET['duedate']) ? htmlspecialchars($_GET['duedate']) : ''; ?>">
         <button type="submit" name="update_task">Update Task</button>
     </form>
     <br>
