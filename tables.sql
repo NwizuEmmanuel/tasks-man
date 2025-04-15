@@ -5,7 +5,10 @@ CREATE TABLE users(
     firstname VARCHAR(60) NOT NULL,
     lastname VARCHAR(60) NOT NULL,
     email VARCHAR(120) NOT NULL,
-    `password` VARCHAR(90) NOT NULL
+    `password` VARCHAR(90) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    role ENUM('admin', 'user') DEFAULT 'user',
+    UNIQUE(email)
 );
 
 CREATE TABLE tasks (

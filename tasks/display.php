@@ -1,7 +1,7 @@
 <?php
 include_once("config.php");
 
-$result = mysqli_query($mysqli, "SELECT id, task, duedate, user_id, status FROM tasks WHERE user_id = '".$_SESSION['id']."' ORDER BY id DESC");
+$result = mysqli_query($mysqli, "SELECT id, task, duedate, user_id, status FROM tasks WHERE user_id = '".$_SESSION['id']."' ORDER BY duedate ASC");
 if (!$result) {
     die("Query failed: " . mysqli_error($mysqli));
 }

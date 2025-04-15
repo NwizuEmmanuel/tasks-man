@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php include_once("config.php");?>
 <?php
-if (!isset($_SESSION['firstname'])){
+if (!isset($_SESSION['firstname']) && !isset($_SESSION['role'])){
     header("location: login/login.html");
     exit();
 }
@@ -21,11 +21,11 @@ if (!isset($_SESSION['firstname'])){
     <h2>Add Tasks</h2>
     <div>
         <form action="tasks/add.php" method="post">
-            <textarea name="task" id="task" placeholder="Tasks"></textarea>
+            <textarea name="task" id="task" placeholder="Tasks" required></textarea>
             <br>
             <label for="status">
                 Status
-                <select name="status" id="">
+                <select name="status" id="" required>
                     <option value="done">Done</option>
                     <option value="in progress">In progress</option>
                     <option value="not started" selected>Not Started</option>
@@ -33,7 +33,7 @@ if (!isset($_SESSION['firstname'])){
             </label>
             <br>
             <label for="duedate">
-                Duedate <input type="date" name="duedate" id="">
+                Duedate <input type="date" name="duedate" id="" required>
             </label>
             <br>
             <input type="submit" value="Add Task">
