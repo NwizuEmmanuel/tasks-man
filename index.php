@@ -1,7 +1,6 @@
 <?php session_start(); ?>
-<?php include_once("config.php");?>
 <?php
-if (!isset($_SESSION['firstname']) && !isset($_SESSION['role'])){
+if (!isset($_SESSION['logged_in'])){
     header("location: login.php");
     exit();
 }
