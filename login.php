@@ -17,12 +17,14 @@
         <button type="submit" name="submit">Login</button>
     </form>
     <a href="register.php">I am new here. Register here.</a>
+    <span> | </span>
+    <a href="admin/admin_login.php">Login as admin.</a>
 </body>
 </html>
 
 <?php
 session_start();
-use App\Auth\AuthenticateUser;
+require_once "./AuthenticateUser.php";
 
 if (isset($_POST['submit'])){
     $auth = new AuthenticateUser();

@@ -16,30 +16,22 @@
         <br>
         <button type="submit" name="submit">Login</button>
     </form>
+    <a href="admin_register.php">I am new here. Register here.</a>
 </body>
 </html>
 
 <?php
 session_start();
-include_once("../config.php");
+
+include_once __DIR__ . "/../AuthenticateUser.php";
 if (isset($_POST['submit'])){
-    $email = mysqli_real_escape_string($mysqli,$_POST['email']);
-    $password = mysqli_real_escape_string($mysqli,$_POST['password']);
+    $auth = new AuthenticateUser();
+    $auth->__set("email",$_POST["email"]);
+    $auth->__set("password", $_POST["password"]);
+    // Check if the user is an admin
+    // If the user is not an admin, redirect to the login page
+    // If the user is an admin, redirect to the admin page
+    $auth->verifyAdmin();
 
-    $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email='$email' AND role='admin'");
-    if (mysqli_num_rows($query) == 1){
-        $fetch = mysqli_fetch_array($query);
-        if (password_verify($password, $fetch['password'])){
-            $_SESSION['firstname'] = $fetch['firstname'];
-
-            echo "<script>alert('Login was successful.')</script>";
-            header("location: admin_page.php");
-            exit();
-        }else{
-            echo "<script>alert('incorrect password.')</script>";
-        }
-    }else{
-        echo "<script>alert('user not found.')</script>";
-    }
 }
 ?>

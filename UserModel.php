@@ -1,6 +1,4 @@
 <?php
-namespace App\Models;
-
 use mysqli;
 
 class UserModel{
@@ -27,7 +25,7 @@ class UserModel{
 
     public function addNewUser(){
         $this->password = \password_hash($this->password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO task_db(firstname,lastname,email,password)VALUES(?,?,?,?)";
+        $sql = "INSERT INTO users(firstname,lastname,email,password)VALUES(?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
         if ($stmt === false){
             die("Error preparing statement: " . $this->conn->error);
@@ -74,6 +72,18 @@ class UserModel{
         }
 
         $stmt->close();
+    }
+
+    public function getUserFirstname(int $id): string{
+        $sql = "select firstname from users where id = ? and role='user'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i",$id);
+        if ($stmt === false){
+            die("Error preparing statement: " . $this->conn->error);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_array();
+        return $result["firstname"];
     }
 
     public function __destruct()

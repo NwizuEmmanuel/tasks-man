@@ -1,31 +1,16 @@
 <?php
+include_once __DIR__ . "/../TaskModel.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_task'])) {
-    // Database connection
-    $conn = new mysqli("localhost", "doe", "doe123", "task_db");
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Sanitize and retrieve input data
-    $task_id = intval($_POST['task_id']);
-    $task = $conn->real_escape_string($_POST['task']);
-    $status = $conn->real_escape_string($_POST['status']);
-    $duedate = $conn->real_escape_string($_POST['duedate']);
-
-    // Update query
-    $stmt = $conn->prepare("UPDATE tasks SET task = ?, status = ?, duedate = ? WHERE id = ?");
-    $stmt->bind_param("sssi", $task, $status, $duedate, $task_id);
-
-    if ($stmt->execute()) {
-        echo "Task updated successfully.";
-    } else {
-        echo "Error updating task: " . $stmt->error;
-    }
-
-    $stmt->close();
-    $conn->close();
+    $id = $_POST['task_id'];
+    $task = new TaskModel();
+    $task->__set('name', $_POST['name']);
+    $task->__set('description', $_POST['description']);
+    $task->__set('status', $_POST['status']);
+    $task->__set('duedate', $_POST['duedate']);
+    $task->updateTaskById($id);
+    echo "<script>alert('Task was updated.')</script>";
+    header("location: admin_page.php");
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -42,10 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_task'])) {
     <h1>Edit Task</h1>
     <form method="POST" action="">
         <input type="hidden" name="task_id" value="<?php echo isset($_GET['id']) ? intval($_GET['id']) : ''; ?>">
-        <label for="task">Task:</label>
-        <input type="text" name="task" id="task" required value="<?php echo isset($_GET['task']) ? htmlspecialchars($_GET['task']) : ''; ?>">
+        <label for="task">Name:</label>
+        <input type="text" name="name" id="name" required value="<?php echo isset($_GET['name']) ? htmlspecialchars($_GET['name']) : ''; ?>">
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" required><?php echo isset($_GET['description']) ? htmlspecialchars($_GET['description']) : ''; ?></textarea>
         <label for="status">Status:</label>
-        <input type="text" name="status" id="status" required value="<?php echo isset($_GET['status']) ? htmlspecialchars($_GET['status']) : ''; ?>">
+        <select name="status" id="status" required>
+            <option value="done" <?php echo (isset($_GET['status']) && $_GET['status'] === 'done') ? 'selected' : ''; ?>>Done</option>
+            <option value="in progress" <?php echo (isset($_GET['status']) && $_GET['status'] === 'in progress') ? 'selected' : ''; ?>>In Progress</option>
+            <option value="not started" <?php echo (isset($_GET['status']) && $_GET['status'] === 'not started') ? 'selected' : ''; ?>>Not Started</option>
+        </select>
         <label for="duedate">Due Date:</label>
         <input type="date" name="duedate" id="duedate" required value="<?php echo isset($_GET['duedate']) ? htmlspecialchars($_GET['duedate']) : ''; ?>">
         <button type="submit" name="update_task">Update Task</button>

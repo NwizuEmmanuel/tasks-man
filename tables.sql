@@ -14,7 +14,8 @@ CREATE TABLE users(
 
 CREATE TABLE tasks (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    task TEXT NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    description TEXT DEFAULT "No description for now.",
     `status` ENUM('done', 'in progress', 'not started') DEFAULT 'not started',
     duedate DATE NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
