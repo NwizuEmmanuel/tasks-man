@@ -16,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $admin->email = $_POST['email'];
     $admin->password = $_POST['password'];
     $admin->registerAdmin();
+    header("location: admin_login.php");
+    exit();
 }
 ?>
 
@@ -42,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <br>
         <input type="submit" value="Register" name="submit">
     </form>
+    <a href="admin_login.php">I am already registered. Login here.</a>
+    <span> | </span>
+    <a href="../login.php">Login as user.</a>
+    <span> | </span>
 </body>
 
 </html>

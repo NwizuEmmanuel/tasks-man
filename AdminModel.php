@@ -56,8 +56,6 @@ class AdminModel{
         $stmt->bind_param("sssss", $this->firstname,$this->lastname,$this->email,$this->password,$role);
         if ($stmt->execute()){
             echo "<script>alert('Admin was registered.')</script>";
-            header("location: admin_login.php");
-            exit();
         }else{
             echo "Error: " . $stmt->error;
         }

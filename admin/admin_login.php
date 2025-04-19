@@ -17,6 +17,8 @@
         <button type="submit" name="submit">Login</button>
     </form>
     <a href="admin_register.php">I am new here. Register here.</a>
+    <span> | </span>
+    <a href="../login.php">Login as user.</a>
 </body>
 </html>
 
